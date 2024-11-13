@@ -63,7 +63,7 @@ exports.getAllItemsController = async (req, res) => {
         const userRole = req.payload ; 
         let allItems;
         if (userRole === 'admin') {
-            allItems = await items.find().populate('farmer', 'name email');
+            allItems = await items.find();
         } else {
             allItems = await items.find({ status: 'approved' }).populate('farmer', 'name email');
         }
@@ -114,3 +114,22 @@ exports.getItemByIdController = async (req, res) => {
         res.status(500).json({ message: "Server error", error });
     }
 };
+
+exports.updateItemStatus = async(req,res) =>{
+    console.log("inside update status controller")
+    const adim = req.payload
+    const {status,_id} = req.body
+
+    if(adim==="admin"){
+        try {
+            const item = await items.findOne({_id})
+        if(item){
+            item.status = status
+            await item.save()
+            res.status(201).json({message:"Updated"})
+        }
+        } catch (error) {
+            res.status(401).json(error)
+        }
+    }
+}

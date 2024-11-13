@@ -13,5 +13,5 @@ itemRouter.get("/items/farmId", jwtMiddleware, itemController.getItemByIdControl
 itemRouter.put("/items/update/:itemId", jwtMiddleware, itemController.updateEventController);
 
 itemRouter.delete("/items/delete/:itemId", jwtMiddleware, itemController.ItemsDeleteController);
-
+itemRouter.put("/item/status",jwtMiddleware,itemController.updateItemStatus)
 module.exports = itemRouter

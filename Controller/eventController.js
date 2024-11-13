@@ -2,11 +2,13 @@ const events = require('../Models/eventModel')
 
 //geting events function
 exports.getAllEventsController = async (req, res) => {
+    console.log('Inside the all events controller')
+    const role = req.payload
+    console.log(role)
     try {
         let event;
-
         // Check user role and filter events based on it
-        if (req.user.role === 'admin') {
+        if (role === 'admin') {
             event = await events.find(); // Admin can view all events
         } else {
             event = await events.find({ status: 'approved' }); // Regular users see only approved events
@@ -24,7 +26,8 @@ exports.getAllEventsController = async (req, res) => {
 exports.addEventsController = async (req, res) => {
     console.log("inside the add event controller")
 
-    const { title, description, date, location, farmer } = req.body
+    const { title, description, date, location} = req.body
+    const farmer = req.userRole
     try {
         const newEvent = new events({
             title: title,
@@ -92,10 +95,10 @@ exports.deleteEventController = async (req, res) => {
 //get events by id for the farmer dashboard
 exports.getEventsById = async (req, res) => {
     console.log("Inside the get events by ID controller for Farmer Dashboard");
-    const { farmerId } = req.userRole;
-
+    const  farmerId  = req.userRole
     try {
         const farmerEvents = await events.find({ farmer: farmerId });
+        console.log(farmerEvents)
 
         if (farmerEvents.length === 0) {
             return res.status(404).json({ message: "No events found for this farmer" });
@@ -105,5 +108,25 @@ exports.getEventsById = async (req, res) => {
     } catch (error) {
         console.error("Error retrieving events by farmer ID:", error);
         res.status(500).json({ message: "Server error", error });
+    }
+}
+
+
+exports.updateEventStatus = async(req,res) =>{
+    console.log("inside update status controller")
+    const adim = req.payload
+    const {status,_id} = req.body
+
+    if(adim==="admin"){
+        try {
+            const event = await events.findOne({_id})
+        if(event){
+            event.status = status
+            await event.save()
+            res.status(201).json({message:"Updated"})
+        }
+        } catch (error) {
+            res.status(401).json(error)
+        }
     }
 }

@@ -18,8 +18,8 @@ const eventSchema = mongoose.Schema({
         required: true,
     },
     farmer: {
-        type: mongoose.Schema.Types.ObjectId, // Reference to the user who created the event
-        ref: 'users', // Reference to the User model
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'users',
         required: true,
     },
     status: {

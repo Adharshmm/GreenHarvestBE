@@ -9,4 +9,5 @@ projRoutes.post('/events/add',jwtMiddleWare,eventController.addEventsController)
 projRoutes.put('/events/update/:eventId',jwtMiddleWare,eventController.updateEventController)
 projRoutes.delete('/events/delete/:eventId',jwtMiddleWare,eventController.deleteEventController)
 projRoutes.get("/event/farmId",jwtMiddleWare,eventController.getEventsById)
+projRoutes.put("/event/status",jwtMiddleWare,eventController.updateEventStatus)
 module.exports = projRoutes

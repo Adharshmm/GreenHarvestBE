@@ -115,3 +115,22 @@ exports.getUserDetails = async(req,res)=>{
         res.status(500).json({ message: 'Server error', error });
     }
 }
+
+exports.userDetailsAdmin = async(req,res)=>{
+    console.log("Inside the get user Details controller")
+    try {
+        const response = await users.find({role:"user"})
+        res.status(200).json(response)
+    } catch (error) {
+        res.status(401).json(error)
+    }
+}
+exports.farmerDetailsAdmin = async(req,res)=>{
+    console.log("Inside the get farmer Details controller")
+    try {
+        const response = await users.find({role:"farmer"})
+        res.status(200).json(response)
+    } catch (error) {
+        res.status(401).json(error)
+    }
+}

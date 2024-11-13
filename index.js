@@ -1,5 +1,6 @@
 require('dotenv').config()
 require('./DB/connections')
+const port = process.env.PORT;
 
 const express = require('express')
 const cors = require('cors')
@@ -14,10 +15,9 @@ ghServer.use(routes)
 ghServer.use(eventRouter)
 ghServer.use(itemsRouter)
 
-
-const PORT = 3000;
-ghServer.listen(PORT,()=>{
-    console.log("cart server running successfuly in port:"+PORT)
+ghServer.get('/', (req, res) => {
 })
-ghServer.get('/',(req,res)=>{
+
+ghServer.listen(port, () => {
+    console.log("cart server running successfuly in port:" + port)
 })

@@ -11,4 +11,7 @@ router.post('/user-register',userController.registerController)
 router.post('/user-login',userController.loginController)
 router.put('/update/:id',jwtMiddleware,userController.editUserController)
 router.delete("/delete/:id",jwtMiddleware,userController.deleteUserController)
+router.get("/userdetails",jwtMiddleware,userController.userDetailsAdmin)
+router.get("/farmerdetails",jwtMiddleware,userController.farmerDetailsAdmin)
+
 module.exports = router
