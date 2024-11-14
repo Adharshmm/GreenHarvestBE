@@ -5,6 +5,10 @@ const cartSchema = new mongoose.Schema({
         type:String,
         required:true
     },
+    productId:{
+        type:String,
+        required:true
+    },
     name: {
         type: String,
         required: true,
@@ -17,6 +21,11 @@ const cartSchema = new mongoose.Schema({
     },
     imageUrl:{
         type:String,
+    },
+    quantity:{
+        type:Number,
+        required:true,
+        default: 0
     },
     grandTotal:{
         type:Number,
